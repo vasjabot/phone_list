@@ -15,31 +15,6 @@
 <?if($arResult['ITEMS']):?>
     <?
 
-/*
-$item_batcount = 0;
-foreach ($arResult['ITEMS'] as $item_bat) 
-{
-$item_batcount++;
-}
-//print_r($item_batcount);
-
-
-$item_batcount_discontinued = 0;
-foreach ($arResult['DISCONTINUED'] as $item_bat_disc) 
-{
-$item_batcount_discontinued++;
-}
-//print_r($item_batcount_discontinued);
-
-
-if(($arResult['DISCONTINUED']) && ($item_batcount==$item_batcount_discontinued))
-{
-//print_r("HERE");
-$APPLICATION->SetPageProperty("robots", "noindex, nofollow");
-}*/
-
-
-
     $isCraftmann = $arResult["IS_CRAFTMANN"];
     if ($isCraftmann) {
         $Prefix = "Внешний аккумулятор" . " ";
@@ -71,17 +46,8 @@ $APPLICATION->SetPageProperty("robots", "noindex, nofollow");
     else 
 	{
 
-		//$Prefix = "Аккумулятор для" . " ";
-		//print_r($arResult['~UF_DESCRIPTION']);
-		//echo nl2br("\n");
-		//print_r($arResult['MY_DESCRIPTION']);
-		//echo nl2br("\n");
-
 		if($arResult['~UF_DESCRIPTION']=='test description') 
 		{
-			//print_r("True");
-			//echo nl2br("\n");
-			//this string don't work correctly with cache
 			$APPLICATION->SetPageProperty("description", $arResult['MY_DESCRIPTION']);
 		}
 		else
@@ -91,42 +57,12 @@ $APPLICATION->SetPageProperty("robots", "noindex, nofollow");
 
     }
     ?>
-<?/*
-    global $arPreviewSizes, $arPreviewSectionSizes, $ShowPropInTable, $APPLICATION;
-    $FirstSize = $arPreviewSizes['PREVIEW_PICTURES_1']['arSizes'];
-    $SecondSize = $arPreviewSizes['PREVIEW_PICTURES_2']['arSizes'];
-    $SectionSize = $arPreviewSectionSizes['DETAIL_PICTURES']['arSizes'];
-*/?>
-<?/*
-global $USER;
-$arGroups1 = $USER->GetUserGroupArray();
-if($isCraftmann){$cursb=file_get_contents($_SERVER['DOCUMENT_ROOT']."/inc/banner_switcher_c.php");}else{
-$cursb=file_get_contents($_SERVER['DOCUMENT_ROOT']."/inc/banner_switcher.php");
-}
-if((in_array(1,$arGroups1)||in_array(10,$arGroups1))){
-	if($_POST['submit_bsettings']){
-		if($isCraftmann){
-			file_put_contents($_SERVER['DOCUMENT_ROOT']."/inc/banner_switcher_c.php", $_POST['showbanner']);
-		}else{file_put_contents($_SERVER['DOCUMENT_ROOT']."/inc/banner_switcher.php", $_POST['showbanner']);}
-		$cursb=$_POST['showbanner'];
-	}	
-		?>
-	<form method="post">
-	Показывать баннер (<a href="http://www.craftmann.ru/bitrix/admin/fileman_admin.php?PAGEN_1=1&SIZEN_1=20&lang=ru&site=s1&path=%2Fupload%2Fcatalog_banners&show_perms_for=0&" target="_blank">/upload/catalog_banners/<?=($isCraftmann?"craftmann_promo_2.png":"craftmann_promo_1.png")?></a>)<br/><br/><input type="checkbox" name="showbanner" value="1" <?=($cursb==1?"checked":"")?> />
-	<input type="submit" name="submit_bsettings" value="сохранить">
-	</form>
-	<?
-}
-*/?>
+
+
     <div id="Detail">
-<?
-//echo '<pre>';
-//print_r($arResult['ITEMS']);
-//echo '</pre>';
-?>
+
         <?
         $AccI = -1;
-        //foreach($arResult['ACTIVE'] as $k=>$arItem):
         foreach($arResult['ITEMS'] as $k=>$arItem):
             $AccI++;
             ?>
@@ -156,15 +92,13 @@ if((in_array(1,$arGroups1)||in_array(10,$arGroups1))){
 						$res_inside = CIBlockSection::GetByID($arItem['IBLOCK_SECTION_ID']);
 						if($ar_res_inside = $res_inside->GetNext())
 						{
-						//echo '<pre>';
-						//print_r($arItem['ID']);
-						//echo '</pre>';
+
 						}
 						$res_iblock_id = CIBlockElement::GetIBlockByID($arItem['ID']);
 						$ar_result_my_sec = CIBlockSection::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>$res_iblock_id, "ID"=>$ar_res_inside['ID']),true, Array("UF_BATTERYTYPE")); 
 						if($res_my_sec = $ar_result_my_sec->GetNext())
 						{
-							//print_r($res_my_sec['UF_BATTERYTYPE']);
+
 						}
 						?>
 						<?if ($isCraftmann):?><?// Название для универсальных АКБ ?>
@@ -261,8 +195,6 @@ $Article_tmp = str_replace('.','',$arItem["DISPLAY_PROPERTIES"]["ARTICLE"]["VALU
 
 $(this).parent().parent().parent().parent().hide(); 
 
-//$(this).show(); 
-
 return false;
 
 " 
@@ -275,8 +207,6 @@ href="#">X</a></div>
                                                     <div class="content form-content">
                                                         <?$Producer = '';
                                                         $Model = '';
-
-														//print_r($CurCatalogSection);
 
                                                         if($CurCatalogSection['DEPTH_LEVEL'] == 1)
 														{
@@ -384,7 +314,7 @@ href="#">X</a></div>
                                     <? //endif;
                                     # -------------- /ПОДКЛЮЧЕНИЕ ФОРМЫ - УЗНАТЬ О НАЧАЛЕ ПРОДАЖ ---------------
                                     ?>
-                                    <!-- <div id="buynone<?=$arItem["ID"];?>" class="buynone"></div> -->
+
                                     <?
                                     # -------------- НАЛИЧИЕ - 1 часть ---------------
                                     $nal = $arItem['PROPERTIES']['STORE']['VALUE'];
@@ -394,11 +324,6 @@ href="#">X</a></div>
                                         $class = 'plus';
                                         $text = 'В наличии';
                                     }
-									/*elseif($nal == 'планируется'||$nal=='скоро')
-                                        {
-                                            $class = 'pminus';
-                                            $text = 'Ожидается, подробнее у Консультанта';
-									}*/
                                     else
                                     {
                                         $class = 'minus';
@@ -417,27 +342,6 @@ href="#">X</a></div>
 
 "href=\"javascript: void(0);\" 
 	onclick=\"
-
-//$.post('/akkumulyator/basket_add.php', 
-//{
-//q: $(this).attr('data-quantity'), 
-//pid: $(this).attr('data-item'),
-//},
-
-//function() 
-//{
-//document.location.href='/personal/cart/';
-//}
-//);
-
-//function()
-//{
-//alert('<?php echo $class;?>');
-//var class_js = '<?php echo $class;?>'
-//} 
-
-
-
 \" ")?>" 
 	id="item<?=$arItem["ID"]?>" title="Купить <?=$Prefix?><?=$Dev?> <?=$Mod?>" data-item="<?=$arItem["ID"]?>" 
 	data-quantity="1">КУПИТЬ
@@ -456,11 +360,6 @@ href="#">X</a></div>
 
 $('#request<?=$arItem["ID"]?>').show();
 
-//$('#results<?=$arItem["ID"]?>').append(html);
-
-//alert(<?=$arItem["ID"]?>);
-
-
 "
 
 >УЗНАТЬ О НАЧАЛЕ ПРОДАЖ</a>
@@ -476,12 +375,6 @@ $('#request<?=$arItem["ID"]?>').show();
                                     <?php
                                     global $USER;
                                     # -------------- НАЛИЧИЕ 2 часть ---------------
-
-                                    //include($_SERVER['DOCUMENT_ROOT']."/inc/request-form.php?article=".$Article."&marka=".$Producer."&model=".$Model);
-
-
-                                    //include('/inc/request-form.php');
-
                                     $sARTICLE = '';
 
                                     $sARTICLE = $arItem['PROPERTIES']['ARTICLE']['VALUE'];
@@ -498,16 +391,18 @@ $('#request<?=$arItem["ID"]?>').show();
                                     </script>
 							<?else:?>
 							<?endif;?>
-<?/*itemprop="availability"*/
+
+
+
+
+<?
                                     echo '<div id="'.$arItem["ID"].'" class="instore"><div class="'.$class.'">'.$text.'</div></div>';
 
-                                    //endif;
+
                                     # -------------- /НАЛИЧИЕ 2 часть ---------------
-                                    //if($USER->GetID()=="7"):
+
 
                                     # -------------- ДОСТАВКА ---------------
-                                    //        echo "<p><strong>Доставка</strong><br>";
-                                    //echo "<p>";
                                     CModule::IncludeModule("sale");
 
                                     $db_dtype = CSaleDelivery::GetList(
@@ -608,27 +503,7 @@ $('#request<?=$arItem["ID"]?>').show();
                                 <?endif;?>
                             </table>
                         <?endif;?>
-						<?/*if($arItem['SUGGEST']):?>
-                            <div class="DSuggest">
-                                <div class="hint_block">
-                                    <div class="hint_star_block">
-                                        <div class="cn tl"></div>
-                                        <div class="cn tr"></div>
-                                        <div class="content">
-                                            <div class="content">
-                                                <div class="content">
-                                                    <?=$arItem['SUGGEST']['PREVIEW_TEXT']?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cn bl"></div>
-                                        <div class="cn br"></div>
-                                    </div>
-                                </div>
-                                <a rel="nofollow" href="?" class="DIcons2"></a>
-                                <a rel="nofollow" href="?" class="Suggest"><?=$arItem['SUGGEST']['NAME']?></a>
-                            </div>
-						<?endif;*/?>
+						
                         <div style="width:100%">
 <?if($nal == 'в наличии'||$nal == 'есть'  and !$isCraftmann and !$AccI):?>
 <?if ($arItem['DISPLAY_PROPERTIES']['CAPACITY']['VALUE']>=2000):?>
@@ -707,33 +582,23 @@ $('#request<?=$arItem["ID"]?>').show();
                         }
 						?>
 
-<?/*if (!empty($arItem["PROPERTIES"]["PICTURES"]["VALUE"])):?>
-    <?foreach($arItem["PROPERTIES"]["PICTURES"]["VALUE"] as $photo):?>
-        <img src="<?=CFile::GetPath($photo)?>?<?php print filemtime($photo); ?>" />
-    <?endforeach?>
-								<?endif*/?>
+
 <?
 $img0 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][0]['BIG']['SRC']);
 $img1 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][1]['BIG']['SRC']);
 $img2 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][2]['BIG']['SRC']);
 $img3 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][3]['BIG']['SRC']);
 $imgtime = $img0+$img1+$img2+$img3;
-//echo '<pre>';
-//echo $imgtime;
-//print_r($_SERVER['DOCUMENT_ROOT'].$FirstPic['BIG']['SRC']);
-//echo '</pre>';
-
-
 ?>
+
+
                         <div class="clear"></div>
-<!--                        <img src="<?=$FirstPic['BIG']['SRC']?>" alt="<?=$Prefix?> <?=$Dev?> <?=$Mod?> <?=$arItem["NAME"]?>" itemprop="image" class="for_print"/>
--->
                         <img src="<?=$FirstPic['BIG']['SRC']?>?<?=$imgtime?>" alt="<?=$Prefix?> <?=$Dev?> <?=$Mod?> <?=$arItem["NAME"]?>" class="for_print"/>
                     </div>
                     <?
                     $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT"));
                     $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BCS_ELEMENT_DELETE_CONFIRM')));
-//$arSelect = Array("PROPERTY_PHONE_IMG");
+
                     $arFilter = Array("IBLOCK_ID"=>12, "ID"=>$arItem["ID"]);
                     $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
                     while($ob = $res->GetNextElement())
@@ -756,7 +621,6 @@ $imgtime = $img0+$img1+$img2+$img3;
                                 $imgalt = $imgtitle = $arResult['~UF_ALT'];
                             } else
                             {
-                                //$imgalt = $Prefix . strtolower($arItem['NAME']) .' производства CRAFTMANN';
                                 $catname = explode(' ', $arItem['NAME']);
                                 $imgalt = 'CRAFTMANN '.$arItem["PROPERTIES"]["ARTICLE"]["VALUE"].' - Купить батарею '.$arItem["PROPERTIES"]["ORIGINAL_CODE"]["VALUE"].'';
                                 $imgtitle = 'CRAFTMANN '.$arItem['NAME'];
@@ -774,15 +638,14 @@ $imgtime = $img0+$img1+$img2+$img3;
                                         $statusPicture = 'prof.png';
                                         $statusPictureAlt='Выбор профессионалов CRAFTMANN';
                                     }
-                                    //$statusPicturePath = $templateFolder . "/images/" . $statusPicture;
+
                                     $statusPicturePath = "/upload/catalog_banners/" . $statusPicture;
                                     ?>
 
                                     <?if($statusPicture):?>
                                         <img id="status_<?=$arItem['ID']?>" width="210px" height="30px" style="margin-bottom: -124px;position: absolute;z-index: 10;left:233px;" src="<?=$statusPicturePath?>" alt="<?=$statusPictureAlt?>" />
                                     <?endif;?>
-                                    <!-- <a rel="nofollow" onclick="_gaq.push(['_trackPageview', '/virtual/click_image']); yaCounter9291454.reachGoal('click_image'); return true;" href="<?=$FirstPic['BIG']['SRC']?>" rel="0" id="toprp_<?=$arItem['ID']?>" data-title="<?=$Prefix?> <?=$Dev?> <?=$Mod?>. <?=$imgtitle?>" class="AccPic">
-                                        <img style="margin:0px;" src="<?=$FirstPic['BIG']['SRC']?>" alt="Аккумулятор <?=$res_my_sec['UF_BATTERYTYPE']?>" title="Аккумулятор <?=$res_my_sec['UF_BATTERYTYPE']?>" width="440" height="400" /> -->
+
                                     <a rel="nofollow" href="<?=$FirstPic['BIG']['SRC']?>?<?=$imgtime?>" rel="0" id="toprp_<?=$arItem['ID']?>" data-title="<?=$Prefix?> <?=$Dev?> <?=$Mod?>. <?=$imgtitle?>" class="AccPic">
                                         <img style="margin:0px;" src="<?=$FirstPic['BIG']['SRC']?>?<?=$imgtime?>" alt="Аккумулятор <?=$res_my_sec['UF_BATTERYTYPE']?>" title="Аккумулятор <?=$res_my_sec['UF_BATTERYTYPE']?>" width="400" />
                                     </a><!-- 298x391 -->
@@ -803,8 +666,6 @@ $imgtime = $img0+$img1+$img2+$img3;
 		 {
 			if($My_arSection['PICTURE']!== NULL)
 			{
-				//$My_file = CFile::ResizeImageGet($My_arSection['PICTURE'], array('width'=>70, 'height'=>100), BX_RESIZE_IMAGE_PROPORTIONAL, true);
-				//echo '<img src="'.CFile::GetPath($My_arSection['PICTURE']).'" width="'.$My_file['width'].'" height="'.$My_file['height'].'" alt="Купить '.$Prefix.' '.$Dev.' '.$Mod.'" title="'.$Dev.' '.$Mod.'" class="PhonePic" style="max-height: 100px;max-width: 70px;"/>';
 				$My_file = CFile::GetPath($My_arSection['PICTURE']);
 				$Patch_file = $_SERVER['DOCUMENT_ROOT'].$My_file;
 				$Phoneimgsize = filesize($Patch_file);
@@ -815,9 +676,6 @@ $imgtime = $img0+$img1+$img2+$img3;
 				else{
 					$PhonePicClass = 'width: 50px;height: 100px;margin-left: -50px;position: relative;vertical-align: bottom;';
 				}
-				//echo '<pre>';
-				//print_r($Phoneimgsize);
-				//echo '</pre>';
 				if ($PhoneUrl == TRUE) {
 					//Ссылка на статью о телефоне
 					echo '<a href="/support/devices/'.$arResult["CODE"].'/"><img src="'.$My_file.'?'.$Phoneimgsize.'" alt="Купить '.$Prefix.' '.$Dev.' '.$Mod.'" title="'.$Dev.' '.$Mod.'" style="'.$PhonePicClass.'"/></a>';
@@ -825,9 +683,7 @@ $imgtime = $img0+$img1+$img2+$img3;
 				{
 					echo '<img src="'.$My_file.'?'.$Phoneimgsize.'" alt="Купить '.$Prefix.' '.$Dev.' '.$Mod.'" title="'.$Dev.' '.$Mod.'" style="'.$PhonePicClass.'"/>';
 				}
-
 			}
-			 //echo '<img src="'.CFile::GetPath($arSection['PICTURE']).'" alt="'.$arSection['NAME'].'" />';
 		}
 ?>
                                     <div class="clear"></div>
@@ -853,13 +709,10 @@ $imgtime = $img0+$img1+$img2+$img3;
                                         foreach($arItem['PICTURES'] as $arPicture):
                                             $PicI++;
                                             $PiCClass = ($PicI == 0) ? 'toprp current' : 'toprp';
-//                                            $hrefs[] = '<a class="' . $PiCClass . '" id="toprp_'.$arItem['ID'].'_'.$PicI.'" href="'.$arPicture['BIG']['SRC'].'" rel="prettyPhoto['.$arItem['ID'].']"></a>';
                                             $hrefs[] = '<a class="' . $PiCClass . '" id="toprp_'.$arItem['ID'].'_'.$PicI.'" href="'.$arPicture['BIG']['SRC'].'?'.$imgtime.'" rel="prettyPhoto['.$arItem['ID'].']"></a>';
                                             ?>
                                             <li>
-<!--                                                <a rel="nofollow" class="c" href="<?=$arPicture['BIG']['SRC']?>"  rev="Index:'<?=$PicI?>', Mhref:'<?=$arPicture['MEDIUM']['SRC']?>', Mwidth:'420', Mheight:'400'">
-                                                    <img style="margin:0px;" <?if ($PicI == 0): ?>class="current"<?endif;?> src="<?=$arPicture['MEDIUM']['SRC']?>" width="59" height="53" alt="<?=$Prefix?><?=$Dev?> <?=$Mod?> <?=$res_my_sec['UF_BATTERYTYPE']?>" title="Аккумулятор <?=$res_my_sec['UF_BATTERYTYPE']?> для <?=$Dev?> <?=$Mod?>" />
-                                                    <span style="width:59px; height:53px; background-image:url('<?=$arPicture['SMALL']['SRC']?>');  background-size:100%; display: inline-block;">&nbsp;</span>-->
+
                                                 <a rel="nofollow" class="c" href="<?=$arPicture['BIG']['SRC']?>?<?=$imgtime?>"  rev="Index:'<?=$PicI?>', Mhref:'<?=$arPicture['BIG']['SRC']?>', Mwidth:'400'">
                                                     <span style="width:80px; height:73px; background-image:url('<?=$arPicture['BIG']['SRC']?>?<?=$imgtime?>'); background-repeat: no-repeat; background-size:100%; display: inline-block;"></span>
                                                 </a>
@@ -880,7 +733,6 @@ if($ar_resultArt = $db_listArt->GetNext())
 }
 if ($FirstPic['BIG']['SRC']==NULL)
 {
-//echo '<img width="440" height="400" src="/bitrix/components/esfull/FirstUploadFull/acupic/'.$arItem["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"].'/',$arItem["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"].'_1.jpg">';
 echo '<img width="400" src="/bitrix/components/esfull/FirstUploadFull/acupic/'.$arItem["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"].'/',$arItem["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"].'_1.jpg">';
 	echo '<img src="/bitrix/components/esfull/FirstUploadFull/telpic/'.$ar_resultArt['UF_ARTICLE'].'.jpg" alt="Купить '.$Prefix.' '.$Dev.' '.$Mod.'" title="'.$Dev.' '.$Mod.'" class="PhonePic" style="max-height: 100px;max-width: 70px; margin:0px 0px -270px -30px;"/>';
 }
@@ -918,15 +770,11 @@ echo '<img width="400" src="/bitrix/components/esfull/FirstUploadFull/acupic/'.$
                                     </tr>
                                     <tr class="<?=$TrClass?>">
                                         <td class="DNameTD"><div class="DName">Оригинальный код</div><div class="Dsep"></div></td>
-										<td class="DValueTD"><?/*if ($arItem["DISPLAY_PROPERTIES"]["ORIGINAL_CODE"]["VALUE"] != $res_my_sec["UF_BATTERYTYPE"])
-										{
-											echo ''.$arItem['DISPLAY_PROPERTIES']['ORIGINAL_CODE']['VALUE'].'; '.$res_my_sec["UF_BATTERYTYPE"].'';
-										}
-										else
-{*/
+										<td class="DValueTD">
+											<?
 											echo ''.$arItem['DISPLAY_PROPERTIES']['ORIGINAL_CODE']['VALUE'].'</a>';
-/*}*/
-										?></td>
+											?>											
+										</td>
                                     </tr>
                                     <tr class="<?=$TrClass?>">
                                         <td class="DNameTD"><div class="DName">Сертификация</div><div class="Dsep"></div></td>
@@ -975,9 +823,6 @@ echo '<img width="400" src="/bitrix/components/esfull/FirstUploadFull/acupic/'.$
 
         <?endforeach; /*Active*/ ?>
 
-        <?//$APPLICATION->IncludeFile('/inc/print_detail.php');?>
-
-
 
 
         <?$APPLICATION->IncludeComponent("INSIDE:phone.list.tabs", "tabs", array(
@@ -997,64 +842,22 @@ echo '<img width="400" src="/bitrix/components/esfull/FirstUploadFull/acupic/'.$
 
 
 <script>
-//дожидаемся полной загрузки страницы
 $(document).ready(function() 
 {
-
-   //получаем идентификатор элемента
-	//var a = document.getElementsById('Detail');
-	//var a =document.getElementById('Detail').getElementsByTagName('h1')[0].firstChild.nodeValue;
-	//var a = document.getElementsByClassName('Btn')[0].getElementsByTagName('a')[0].getAttribute('href');
-	//var Btn_add_to_cart = document.getElementsByClassName('Btn')[0];
-	//var Btn_add_to_cart = document.getElementsByClassName('Btn');
 	var Btn_add_to_cart_by_id = document.getElementById('Btn');
 	var Mass_tagname = document.getElementsByTagName("*");
-
-
-	//var userName = '<?php echo $name;?>';
-	//alert('<?php echo $class;?>');
-	//alert(Btn_add_to_cart);
-	//alert(Mass_tagname.length);
-	//alert(Mass_tagname[1054].getAttribute('class'));
-
-
-	//alert("dgfsdgdfgdf");
-
 
 	for (var Mass_count = 0; Mass_count < Mass_tagname.length; Mass_count++) 
 		{
 
-			/*if(Mass_tagname[Mass_count].getAttribute('class') == "DetailPictureList") 
-			{
-				var glob_var_discontinued = '<?php echo $glob_var_discontinued;?>';
-				if(glob_var_discontinued!=="")
-				{
-					alert(glob_var_discontinued);
-				}
-			}*/
-
 			if(Mass_tagname[Mass_count].getAttribute('class') == "Btn") 
 			{
 
-				///var a = '.$arResult['DISCONTINUED'].';
-
-				//alert("dgfsdgdfgdf");
-				//alert(Mass_tagname[Mass_count].getAttribute('class'));
-				//alert(Mass_tagname[Mass_count].innerHTML);
-
 				var Btn_span_inside_mass = Mass_tagname[Mass_count].getElementsByTagName('span')[0];
-
-				//alert(Btn_span_inside_mass);
-
 				var Btn_instock = "minus";
-
-
-				//alert(Btn_span);
-
 
 				if (Btn_span_inside_mass == "[object HTMLSpanElement]")
 				{
-					//alert(Btn_span.getAttribute('name'));
 					Btn_instock = Btn_span_inside_mass.getAttribute('name');
 				}
 				else
@@ -1062,29 +865,18 @@ $(document).ready(function()
 					Btn_instock = "minus";
 				}
 
-				//alert(Btn_instock);
-
-
 				if(Btn_instock == "plus")
 				{
 	 				Mass_tagname[Mass_count].onclick = function() 
 					{
 						var Acc_name_js = document.getElementById('Detail').getElementsByTagName('span')[0].firstChild.nodeValue;
-						//var Btn_js = document.getElementsByClassName('Acc')[0].getElementsByTagName('a')[0].getAttribute('name');
-						//var Acc_id_js = document.getElementById('Detail').getElementsByTagName('a')[0].name;
-						//var Btn_js = document.getElementById('DPrice').innerHTML;
-
 						var Acc_id_mass_result = '';
-						//var Acc_id_mass_js = document.getElementsByClassName('Acc');
-						//var Acc_id_mass_js = document.getElementById('Acc');
 
 						for (var Mass_count_inside = 0; Mass_count_inside < Mass_tagname.length; Mass_count_inside++) 
 						{
 							if(Mass_tagname[Mass_count_inside].getAttribute('class') == "Acc") 
 							{
-								//alert(Mass_tagname[Mass_count_inside].innerHTML);
 								Acc_id_mass_result += ';' + Mass_tagname[Mass_count_inside].getElementsByTagName('a')[0].getAttribute('name');
-								//alert(Acc_id_mass_result);
 							}
 						}
 
@@ -1104,91 +896,10 @@ $(document).ready(function()
 							}
 
 						);
-						//return false;
     				}
 				}
 			}
 		}
-
-
-
-
-
-
-
-	/*for (var y = 0; y < Btn_add_to_cart.length; y++) 
-		{
-			var Btn_add_to_cart_inside = document.getElementsByClassName('Btn')[y];
-			//var Btn_add_to_cart_inside = document.getElementById('Btn')[y];
-
-			//alert('<?php echo $class;?>');
-			//alert(Btn_add_to_cart_inside.innerHTML);
-
-			var Btn_span = Btn_add_to_cart_inside.getElementsByTagName('span')[0];
-			var Btn_instock = "minus";
-
-
-			//alert(Btn_span);
-
-
-			if (Btn_span == "[object HTMLSpanElement]")
-			{
-				//alert(Btn_span.getAttribute('name'));
-				Btn_instock = Btn_span.getAttribute('name');
-			}
-			else
-			{
-				Btn_instock = "minus";
-			}
-
-			//alert(Btn_instock);
-			//alert($("span:first").innerHTML);
-			//alert(Btn_innerHTML.getAttribute('span')[0]);
-			//alert(Btn_add_to_cart_inside.getElementsByTagName('span')[0].value);
-
-			if(Btn_instock == "plus")
-			{
-	 			Btn_add_to_cart_inside.onclick = function() 
-				{
-					var Acc_name_js = document.getElementById('Detail').getElementsByTagName('h1')[0].firstChild.nodeValue;
-					//var Btn_js = document.getElementsByClassName('Acc')[0].getElementsByTagName('a')[0].getAttribute('name');
-					//var Acc_id_js = document.getElementById('Detail').getElementsByTagName('a')[0].name;
-					//var Btn_js = document.getElementById('DPrice').innerHTML;
-
-					var Acc_id_mass_result = '';
-					var Acc_id_mass_js = document.getElementsByClassName('Acc');
-					//var Acc_id_mass_js = document.getElementById('Acc');
-
-
-					for (var i = 0; i < Acc_id_mass_js.length; i++) 
-					{
-						Acc_id_mass_result += ';' + document.getElementsByClassName('Acc')[i].getElementsByTagName('a')[0].getAttribute('name');
-					}
-
-					//alert(Acc_name_js);
-					//alert(Acc_id_mass_result);
-
-					$.post
-					(
-						'/akkumulyator/basket_add.php', 
-						{
-							q: $(this).attr('data-quantity'), 
-							pid: $(this).attr('data-item'),
-							qpid: Acc_name_js,
-							wpid: Acc_id_mass_result
-						},
-
-						function() 
-						{
-							document.location.href='/personal/cart/';
-						}
-					);
-					//return false;
-    			}
-			}
-		}*/
-
-
 });
 
 </script>
