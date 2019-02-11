@@ -1,5 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
+require_once('include_functions.php');
+
 global $APPLICATION; global $USER; global $CurCatalogSection;
 $arResult["RATING"] = array();
 $cp = $this->__component; // объект компонента
@@ -197,6 +199,20 @@ foreach ($arResult['ITEMS'] as $arItem)
 	}
 	
 }
+
+
+if ($arResult["IS_CRAFTMANN"]) 
+{
+    $arResult["PREFIX"] = getCraftmannPrefix();
+    $arResult["CRAFTMANN_MAIN_PROPERTIES"] = getCraftmannMainProperties();
+    $arResult["CRAFTMANN_ALL_PROPERTIES"] = getCraftmanAllProperties();
+    $APPLICATION->SetPageProperty("title", $arResult['~UF_TITLE']);
+	$APPLICATION->SetPageProperty("description", $arResult['UF_DESCRIPTION']);
+    $APPLICATION->SetPageProperty("keywords", $arResult['~UF_KEYWORDS']);
+}
+
+
+
 $arResult["SHOW_BRAND_MODEL_IN_DESCRIPTION"] = (($arParams["SHOW_BRAND_MODEL_IN_DESCRIPTION"] == "Y") && !$arResult["IS_CRAFTMANN"]);
 $arResult["TABS_PARAMETERS"] = ($arResult["IS_CRAFTMANN"]) ? array("SHOW_ONLY_WARRANTY" => "Y") : array("PARAMS" => "NO_PARAMS");
 if ($arResult["IS_CRAFTMANN"]) 

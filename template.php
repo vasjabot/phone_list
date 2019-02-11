@@ -8,15 +8,49 @@
 <?if($arResult['ITEMS']):?>
     <?
     $isCraftmann = $arResult["IS_CRAFTMANN"];
+
+    print_r("$arResult_is: " . $arResult);
+    echo nl2br("\r\n");
+
+    foreach($arResult as $key => $value)
+    {
+    	print_r("$key " .$value);
+    	echo nl2br("\r\n");
+    }
+
     if ($isCraftmann) {
-        $Prefix = getCraftmannPrefix();
-        $CraftmanMainProperties = getCraftmannMainProperties();
-        $CraftmanAllProperties = getCraftmanAllProperties();
-        $APPLICATION->SetPageProperty("title", $arResult['~UF_TITLE']);
-		$APPLICATION->SetPageProperty("description", $arResult['UF_DESCRIPTION']);
-        $APPLICATION->SetPageProperty("keywords", $arResult['~UF_KEYWORDS']);
+        $Prefix = $arResult["PREFIX"];
+        $CraftmanMainProperties = $arResult["CRAFTMANN_MAIN_PROPERTIES"];
+        $CraftmanAllProperties = $arResult["CRAFTMANN_ALL_PROPERTIES"];
     }
     ?>
+
+
+
+<?
+global $CurCatalogSection;
+$Dev = '';
+$Mod = '';
+
+
+if($CurCatalogSection['DEPTH_LEVEL'] == 1)
+{
+	$Dev = $CurCatalogSection['NAME'];
+}
+                            
+$Mod = htmlspecialchars($_REQUEST['ModelName']);
+if($CurCatalogSection['DEPTH_LEVEL'] == 2 && strlen($Dev) <= 0)
+{
+    $res = CIBlockSection::GetByID($CurCatalogSection['IBLOCK_SECTION_ID']);
+    if($ar_res = $res->GetNext())
+        $Dev =  $ar_res['NAME'];
+    $Mod = $CurCatalogSection['NAME'];
+    $My_ArSectionId = $CurCatalogSection['ID'];
+}
+
+
+?>
+
 
 
     <div id="Detail">
@@ -32,27 +66,11 @@
 
 					<div itemscope itemtype="http://schema.org/Product" class="DetailDescription" style="padding-right: 0px;">
                         <a name="<?=$arItem['ID']?>"></a>
-                        <?global $CurCatalogSection;?>
-                        <?$Dev = '';
-                        $Mod = '';
-                        if($CurCatalogSection['DEPTH_LEVEL'] == 1)
-                            $Dev = $CurCatalogSection['NAME'];
-                        $Mod = htmlspecialchars($_REQUEST['ModelName']);
-                        if($CurCatalogSection['DEPTH_LEVEL'] == 2 && strlen($Dev) <= 0)
-                        {
-                            $res = CIBlockSection::GetByID($CurCatalogSection['IBLOCK_SECTION_ID']);
-                            if($ar_res = $res->GetNext())
-                                $Dev =  $ar_res['NAME'];
-                            $Mod = $CurCatalogSection['NAME'];
-                            $My_ArSectionId = $CurCatalogSection['ID'];
-                        }
-                        ?>
+                
 						<?
 						$res_inside = CIBlockSection::GetByID($arItem['IBLOCK_SECTION_ID']);
-						if($ar_res_inside = $res_inside->GetNext())
-						{
-
-						}
+						$ar_res_inside = $res_inside->GetNext();
+						
 						$res_iblock_id = CIBlockElement::GetIBlockByID($arItem['ID']);
 $ar_result_my_sec = CIBlockSection::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>$res_iblock_id, "ID"=>$ar_res_inside['ID']),true, Array("UF_BATTERYTYPE", "UF_ARTICLE", "UF_MODEL")); 
 						if($res_my_sec = $ar_result_my_sec->GetNext())
@@ -89,6 +107,11 @@ if ($res_my_sec['UF_ARTICLE'] == 'A1.01.240')
 
 ?>
 <span itemprop="name" style="display:none;"><?=$Article_tmp?></span>
+
+
+
+
+
 <?if ($isCraftmann):$Prefix = "";?>
 <?else:$Prefix = "аналогичен штатной батареи питания " . $res_my_sec['UF_BATTERYTYPE'] . " и полностью совместим с " . $Dev . " " . $Mod;?>
 <?endif;?>
