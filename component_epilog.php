@@ -124,14 +124,4 @@ $NUMBER=0
 	),
 	false
 );?>
-
-	<?//$sTemplate2Result = ob_get_clean();
-//$arResult['TEMPLATE_RESULT'] = str_replace("<component2></component2>", $sTemplate2Result, $arResult['TEMPLATE1_RESULT']);
-//echo $arResult['TEMPLATE_RESULT'];
-?>
-
 </div>
-<?//endif;
-//$APPLICATION->SetAdditionalCSS('/bitrix/templates/.default/components/bitrix/iblock.vote/stars_new/style.css');
-//$APPLICATION->AddHeadScript('/bitrix/templates/.default/components/bitrix/iblock.vote/stars_new/script.js');
-?>
