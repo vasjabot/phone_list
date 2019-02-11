@@ -1,6 +1,5 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
-
 <style type="text/css">
     div.instore { color: #007240; font-family: "ArialNarrowRegular", Arial, sans-serif; margin-top: 10px; margin-bottom: 10px;}
     div.instore i { display: block; background: url('/images/pm.png'); width: 26px; height: 26px; float: left; margin-right: 5px; position: relative; top: -5px; }
@@ -95,7 +94,7 @@
 
 						}
 						$res_iblock_id = CIBlockElement::GetIBlockByID($arItem['ID']);
-						$ar_result_my_sec = CIBlockSection::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>$res_iblock_id, "ID"=>$ar_res_inside['ID']),true, Array("UF_BATTERYTYPE")); 
+$ar_result_my_sec = CIBlockSection::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>$res_iblock_id, "ID"=>$ar_res_inside['ID']),true, Array("UF_BATTERYTYPE", "UF_ARTICLE", "UF_MODEL")); 
 						if($res_my_sec = $ar_result_my_sec->GetNext())
 						{
 
@@ -122,7 +121,13 @@
 						<?endif;?>
 						<?endif;?>
                         <!--<div style="margin-bottom: 30px;margin-top:-25px">--><div>
-<?$Article_tmp = str_replace('.','',$arItem["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]);?>
+<?$Article_tmp = str_replace('.','',$arItem["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]);
+if ($res_my_sec['UF_ARTICLE'] == 'A1.01.240')
+{
+	$Article_tmp = $res_my_sec['UF_MODEL'];
+}
+
+?>
 <span itemprop="name" style="display:none;"><?=$Article_tmp?></span>
 <?if ($isCraftmann):$Prefix = "";?>
 <?else:$Prefix = "аналогичен штатной батареи питания " . $res_my_sec['UF_BATTERYTYPE'] . " и полностью совместим с " . $Dev . " " . $Mod;?>
@@ -171,6 +176,10 @@ $Prefix = " для ";
 $Prefix1 = "Аккумулятор ";
 $Suffix = " (" . $res_my_sec['UF_BATTERYTYPE'] . ")";
 $Article_tmp = str_replace('.','',$arItem["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]);
+if ($res_my_sec['UF_ARTICLE'] == 'A1.01.240')
+{
+	$Article_tmp = $res_my_sec['UF_MODEL'];
+}
 ?>
 <?endif;?>
 <span itemprop="name" style="display:none;"><?=$Article_tmp?></span> <span itemprop="price" style="display:none;"><?=$arItem['PROPERTIES']['PRICE']['VALUE']?></span><span itemprop="priceCurrency" class="ruble" style="display:none;">RUB</span>
@@ -593,7 +602,7 @@ $imgtime = $img0+$img1+$img2+$img3;
 
 
                         <div class="clear"></div>
-                        <img src="<?=$FirstPic['BIG']['SRC']?>?<?=$imgtime?>" alt="<?=$Prefix?> <?=$Dev?> <?=$Mod?> <?=$arItem["NAME"]?>" class="for_print"/>
+                       <!-- <img src="<?=$FirstPic['BIG']['SRC']?>?<?=$imgtime?>" alt="<?=$Prefix?> <?=$Dev?> <?=$Mod?> <?=$arItem["NAME"]?>" class="for_print"/> -->
                     </div>
                     <?
                     $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT"));
@@ -670,12 +679,12 @@ $imgtime = $img0+$img1+$img2+$img3;
 				$Patch_file = $_SERVER['DOCUMENT_ROOT'].$My_file;
 				$Phoneimgsize = filesize($Patch_file);
 				$Phoneimg = getimagesize($Patch_file);
-				if($Phoneimg[0] == '400'){
+				//if($Phoneimg[0] == '400'){
 					$PhonePicClass = 'width: 100px;height: 100px;margin-left: -80px;position: relative;vertical-align: bottom;';
-				}
-				else{
-					$PhonePicClass = 'width: 50px;height: 100px;margin-left: -50px;position: relative;vertical-align: bottom;';
-				}
+				//}
+				//else{
+				//	$PhonePicClass = 'width: 50px;height: 100px;margin-left: -50px;position: relative;vertical-align: bottom;';
+				//}
 				if ($PhoneUrl == TRUE) {
 					//Ссылка на статью о телефоне
 					echo '<a href="/support/devices/'.$arResult["CODE"].'/"><img src="'.$My_file.'?'.$Phoneimgsize.'" alt="Купить '.$Prefix.' '.$Dev.' '.$Mod.'" title="'.$Dev.' '.$Mod.'" style="'.$PhonePicClass.'"/></a>';
