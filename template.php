@@ -1,15 +1,8 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
-<style type="text/css">
-    div.instore { color: #007240; font-family: "ArialNarrowRegular", Arial, sans-serif; margin-top: 10px; margin-bottom: 10px;}
-    div.instore i { display: block; background: url('/images/pm.png'); width: 26px; height: 26px; float: left; margin-right: 5px; position: relative; top: -5px; }
-    div.instore div.plus i { background-position:0 0; }
-    div.instore div.pminus i,    div.instore div.minus i { background-position:-25px 0; }
-    .hidden { display: none; }
-    .font12, .font12 p, .font12 p font {
-        font-size: 12px;
-    }
-</style>
+<?$this->addExternalCss("style.css");?>
+
+
 
 <?if($arResult['ITEMS']):?>
     <?
