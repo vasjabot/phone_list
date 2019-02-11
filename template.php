@@ -1,58 +1,25 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
+<?require_once('include_functions.php');?>
 <?$this->addExternalCss("style.css");?>
 
 
 
 <?if($arResult['ITEMS']):?>
     <?
-
     $isCraftmann = $arResult["IS_CRAFTMANN"];
     if ($isCraftmann) {
-        $Prefix = "Внешний аккумулятор" . " ";
-        $CraftmanMainProperties = array('CAPACITY', 'WARRANTY', 'COLOR_UNIVERSAL', 'ARTICLE', 'COMPLECT');
-        $CraftmanAllProperties = array(
-            'ARTICLE',
-            'CAPACITY',
-            'POWER',
-            'VOLTAGE',
-            'CURRENT',
-            'CAPACITY_COEFF',
-            'COLOR_UNIVERSAL',
-            'WEIGHT',
-            'SIZE',
-            'MATERIAL',
-            'TYPE',
-            'CERTIFICATION',
-            'WARRANTY',
-            'COMPLECT',
-            'SERIES',
-            'EAN_13',
-            'DISCONTINUED'
-        );
+        $Prefix = getCraftmannPrefix();
+        $CraftmanMainProperties = getCraftmannMainProperties();
+        $CraftmanAllProperties = getCraftmanAllProperties();
         $APPLICATION->SetPageProperty("title", $arResult['~UF_TITLE']);
 		$APPLICATION->SetPageProperty("description", $arResult['UF_DESCRIPTION']);
         $APPLICATION->SetPageProperty("keywords", $arResult['~UF_KEYWORDS']);
-
-    }
-    else 
-	{
-
-		if($arResult['~UF_DESCRIPTION']=='test description') 
-		{
-			$APPLICATION->SetPageProperty("description", $arResult['MY_DESCRIPTION']);
-		}
-		else
-		{
-			$APPLICATION->SetPageProperty("description", $arResult['~UF_DESCRIPTION']);
-		}
-
     }
     ?>
 
 
     <div id="Detail">
-
         <?
         $AccI = -1;
         foreach($arResult['ITEMS'] as $k=>$arItem):
@@ -800,22 +767,17 @@ echo '<img width="400" src="/bitrix/components/esfull/FirstUploadFull/acupic/'.$
 
 <?endif;?>
 
-
 <script>
 $(document).ready(function() 
 {
 	var Btn_add_to_cart_by_id = document.getElementById('Btn');
 	var Mass_tagname = document.getElementsByTagName("*");
-
 	for (var Mass_count = 0; Mass_count < Mass_tagname.length; Mass_count++) 
 		{
-
 			if(Mass_tagname[Mass_count].getAttribute('class') == "Btn") 
 			{
-
 				var Btn_span_inside_mass = Mass_tagname[Mass_count].getElementsByTagName('span')[0];
 				var Btn_instock = "minus";
-
 				if (Btn_span_inside_mass == "[object HTMLSpanElement]")
 				{
 					Btn_instock = Btn_span_inside_mass.getAttribute('name');
@@ -824,14 +786,12 @@ $(document).ready(function()
 				{
 					Btn_instock = "minus";
 				}
-
 				if(Btn_instock == "plus")
 				{
 	 				Mass_tagname[Mass_count].onclick = function() 
 					{
 						var Acc_name_js = document.getElementById('Detail').getElementsByTagName('span')[0].firstChild.nodeValue;
 						var Acc_id_mass_result = '';
-
 						for (var Mass_count_inside = 0; Mass_count_inside < Mass_tagname.length; Mass_count_inside++) 
 						{
 							if(Mass_tagname[Mass_count_inside].getAttribute('class') == "Acc") 
@@ -839,7 +799,6 @@ $(document).ready(function()
 								Acc_id_mass_result += ';' + Mass_tagname[Mass_count_inside].getElementsByTagName('a')[0].getAttribute('name');
 							}
 						}
-
 						$.post
 						(
 							'/akkumulyator/basket_add.php', 
@@ -849,17 +808,15 @@ $(document).ready(function()
 								qpid: Acc_name_js,
 								wpid: Acc_id_mass_result
 							},
-
 							function() 
 							{
 								document.location.href='/personal/cart/';
 							}
-
 						);
     				}
 				}
 			}
 		}
 });
-
 </script>
+
