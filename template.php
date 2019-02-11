@@ -472,46 +472,7 @@ $('#request<?=$arItem["ID"]?>').show();
                         $BUrl = $APPLICATION->GetCurPageParam('ACTION=ADD&ElSc='.$arItem['ID'].'.'.$arItem['IBLOCK_SECTION_ID'],array('ACTION', 'ElSc'));
 						?>
                         <div class="clear"></div>
-                        <?if(1 == 2):?>
-                            <div class="choose"><div class="block_left"><a rel="nofollow" href="?" class="active">Основные характеристики</a></div> <div class="block_right"><a class="OtherProp" href="?" onclick="_gaq.push(['_trackPageview', '/virtual/detail']);
-	yaCounter9291454.reachGoal('detail');
-	return true;">Подробно</a></div><div class="clear"></div></div>
-                            <table class="DProp">
-                                <?if ($isCraftmann): //Свойства для Craftmann?>
-                                    <?foreach ($CraftmanAllProperties as $propertyCode):
-                                        $arrPropertyValue = $arItem["PROPERTIES"][$propertyCode];
-                                        ?>
-                                        <tr <?if (!in_array($propertyCode, $CraftmanMainProperties)): ?>class="DHidePropTr"<?endif;?>>
-                                            <td class="DNameTD">
-                                                <div class="DName"><?=$arrPropertyValue['NAME']?></div>
-                                                <div class="Dsep"></div>
-                                            </td>
-                                            <td class="DValueTD"><?=$arrPropertyValue['VALUE']?></td>
-                                        </tr>
-                                    <?endforeach;?>
-                                <?else://Свойства для остальных разделов?>
-                                    <?$p = 0;
-                                    foreach($arItem["DISPLAY_PROPERTIES"] as $pid => $pval):
-                                        if(!in_array($pid, $ShowPropInTable))
-                                            $TrClass = 'DHidePropTr';
-                                        else
-                                            $TrClass = '';
-                                        ?>
-                                        <tr class="<?=$TrClass?>">
-                                            <td class="DNameTD"><div class="DName"><?=$pval['NAME']?></div><div class="Dsep"></div></td>
-                                            <td class="DValueTD"><?=$pval['DISPLAY_VALUE']?></td>
-                                        </tr>
-                                        <?if($p==11):?>
-                                        <tr class="DHidePropTr">
-                                            <td class="DNameTD"><div class="DName"><?=$arItem["PROPERTIES"]["EAN_13"]["NAME"]?></div><div class="Dsep"></div></td>
-                                            <td class="DValueTD"><?=$arItem["PROPERTIES"]["EAN_13"]["VALUE"]?></td>
-                                        </tr>
-                                    <?endif;?>
-                                        <?$p++;?>
-                                    <?endforeach;?>
-                                <?endif;?>
-                            </table>
-                        <?endif;?>
+
 						
                         <div style="width:100%">
 <?if($nal == 'в наличии'||$nal == 'есть'  and !$isCraftmann and !$AccI):?>
@@ -602,7 +563,7 @@ $imgtime = $img0+$img1+$img2+$img3;
 
 
                         <div class="clear"></div>
-                       <!-- <img src="<?=$FirstPic['BIG']['SRC']?>?<?=$imgtime?>" alt="<?=$Prefix?> <?=$Dev?> <?=$Mod?> <?=$arItem["NAME"]?>" class="for_print"/> -->
+                      
                     </div>
                     <?
                     $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT"));
@@ -679,12 +640,9 @@ $imgtime = $img0+$img1+$img2+$img3;
 				$Patch_file = $_SERVER['DOCUMENT_ROOT'].$My_file;
 				$Phoneimgsize = filesize($Patch_file);
 				$Phoneimg = getimagesize($Patch_file);
-				//if($Phoneimg[0] == '400'){
-					$PhonePicClass = 'width: 100px;height: 100px;margin-left: -80px;position: relative;vertical-align: bottom;';
-				//}
-				//else{
-				//	$PhonePicClass = 'width: 50px;height: 100px;margin-left: -50px;position: relative;vertical-align: bottom;';
-				//}
+		
+				$PhonePicClass = 'width: 100px;height: 100px;margin-left: -80px;position: relative;vertical-align: bottom;';
+				
 				if ($PhoneUrl == TRUE) {
 					//Ссылка на статью о телефоне
 					echo '<a href="/support/devices/'.$arResult["CODE"].'/"><img src="'.$My_file.'?'.$Phoneimgsize.'" alt="Купить '.$Prefix.' '.$Dev.' '.$Mod.'" title="'.$Dev.' '.$Mod.'" style="'.$PhonePicClass.'"/></a>';
