@@ -523,11 +523,11 @@ $('#request<?=$arItem["ID"]?>').show();
 
 
 <?
-$img0 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][0]['BIG']['SRC']);
-$img1 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][1]['BIG']['SRC']);
-$img2 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][2]['BIG']['SRC']);
-$img3 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][3]['BIG']['SRC']);
-$imgtime = $img0+$img1+$img2+$img3;
+// $img0 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][0]['BIG']['SRC']);
+// $img1 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][1]['BIG']['SRC']);
+// $img2 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][2]['BIG']['SRC']);
+// $img3 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][3]['BIG']['SRC']);
+// $imgtime = $img0+$img1+$img2+$img3;
 ?>
 
 
@@ -585,8 +585,8 @@ $imgtime = $img0+$img1+$img2+$img3;
                                         <img id="status_<?=$arItem['ID']?>" width="210px" height="30px" style="margin-bottom: -124px;position: absolute;z-index: 10;left:233px;" src="<?=$statusPicturePath?>" alt="<?=$statusPictureAlt?>" />
                                     <?endif;?>
 
-                                    <a rel="nofollow" href="<?=$FirstPic['BIG']['SRC']?>?<?=$imgtime?>" rel="0" id="toprp_<?=$arItem['ID']?>" data-title="<?=$Prefix?> <?=$Dev?> <?=$Mod?>. <?=$imgtitle?>" class="AccPic">
-                                        <img style="margin:0px;" src="<?=$FirstPic['BIG']['SRC']?>?<?=$imgtime?>" alt="Аккумулятор <?=$res_my_sec['UF_BATTERYTYPE']?>" title="Аккумулятор <?=$res_my_sec['UF_BATTERYTYPE']?>" width="400" />
+                                    <a rel="nofollow" href="<?=$FirstPic['BIG']['SRC']?>" rel="0" id="toprp_<?=$arItem['ID']?>" data-title="<?=$Prefix?> <?=$Dev?> <?=$Mod?>. <?=$imgtitle?>" class="AccPic">
+                                        <img style="margin:0px;" src="<?=$FirstPic['BIG']['SRC']?>" alt="Аккумулятор <?=$res_my_sec['UF_BATTERYTYPE']?>" title="Аккумулятор <?=$res_my_sec['UF_BATTERYTYPE']?>" width="400" />
                                     </a><!-- 298x391 -->
                                     <?
                                     $talt = $arItem['NAME'];
@@ -645,12 +645,12 @@ $imgtime = $img0+$img1+$img2+$img3;
                                         foreach($arItem['PICTURES'] as $arPicture):
                                             $PicI++;
                                             $PiCClass = ($PicI == 0) ? 'toprp current' : 'toprp';
-                                            $hrefs[] = '<a class="' . $PiCClass . '" id="toprp_'.$arItem['ID'].'_'.$PicI.'" href="'.$arPicture['BIG']['SRC'].'?'.$imgtime.'" rel="prettyPhoto['.$arItem['ID'].']"></a>';
+                                            $hrefs[] = '<a class="' . $PiCClass . '" id="toprp_'.$arItem['ID'].'_'.$PicI.'" href="'.$arPicture['BIG']['SRC'].'" rel="prettyPhoto['.$arItem['ID'].']"></a>';
                                             ?>
                                             <li>
 
-                                                <a rel="nofollow" class="c" href="<?=$arPicture['BIG']['SRC']?>?<?=$imgtime?>"  rev="Index:'<?=$PicI?>', Mhref:'<?=$arPicture['BIG']['SRC']?>', Mwidth:'400'">
-                                                    <span style="width:80px; height:73px; background-image:url('<?=$arPicture['BIG']['SRC']?>?<?=$imgtime?>'); background-repeat: no-repeat; background-size:100%; display: inline-block;"></span>
+                                                <a rel="nofollow" class="c" href="<?=$arPicture['BIG']['SRC']?>"  rev="Index:'<?=$PicI?>', Mhref:'<?=$arPicture['BIG']['SRC']?>', Mwidth:'400'">
+                                                    <span style="width:80px; height:73px; background-image:url('<?=$arPicture['BIG']['SRC']?>'); background-repeat: no-repeat; background-size:100%; display: inline-block;"></span>
                                                 </a>
                                             </li>
                                             <?
