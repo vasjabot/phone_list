@@ -30,6 +30,37 @@
         <?
         $AccI = -1;
         foreach($arResult['ITEMS'] as $k=>$arItem):
+        	print_r("$k " .$arItem);
+			echo nl2br("\r\n");
+			foreach($arItem as $key_in=>$value_in)
+			{
+				print_r("$key_in " .$value_in);
+				echo nl2br("\r\n");
+				if($key_in == 'PICTURES')
+				{
+					foreach($value_in as $key_in_in => $value_in_in)
+					{
+						print_r("$key_in_in " .$value_in_in);
+						echo nl2br("\r\n");
+						foreach($value_in_in as $key_in_in_in => $value_in_in_in)
+						{
+							print_r("$key_in_in_in " .$value_in_in_in);
+							echo nl2br("\r\n");
+							foreach($value_in_in_in as $key_in_in_in_in => $value_in_in_in_in)
+							{
+								print_r("$key_in_in_in_in " .$value_in_in_in_in);
+								echo nl2br("\r\n");
+
+							}
+
+						}
+
+					}
+
+				}
+				
+
+			}
             $AccI++;
             ?>
 
@@ -522,13 +553,7 @@ $('#request<?=$arItem["ID"]?>').show();
 						?>
 
 
-<?
-// $img0 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][0]['BIG']['SRC']);
-// $img1 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][1]['BIG']['SRC']);
-// $img2 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][2]['BIG']['SRC']);
-// $img3 = filesize($_SERVER['DOCUMENT_ROOT'].$arItem['PICTURES'][3]['BIG']['SRC']);
-// $imgtime = $img0+$img1+$img2+$img3;
-?>
+
 
 
                         <div class="clear"></div>
@@ -578,10 +603,12 @@ $('#request<?=$arItem["ID"]?>').show();
                                         $statusPictureAlt='Выбор профессионалов CRAFTMANN';
                                     }
 
+
                                     $statusPicturePath = "/upload/catalog_banners/" . $statusPicture;
                                     ?>
 
                                     <?if($statusPicture):?>
+                               
                                         <img id="status_<?=$arItem['ID']?>" width="210px" height="30px" style="margin-bottom: -124px;position: absolute;z-index: 10;left:233px;" src="<?=$statusPicturePath?>" alt="<?=$statusPictureAlt?>" />
                                     <?endif;?>
 
@@ -643,7 +670,7 @@ $('#request<?=$arItem["ID"]?>').show();
                                         $PicI = -1;
                                         $hrefs = array();
                                         foreach($arItem['PICTURES'] as $arPicture):
-                                            $PicI++;
+                                        	$PicI++; 
                                             $PiCClass = ($PicI == 0) ? 'toprp current' : 'toprp';
                                             $hrefs[] = '<a class="' . $PiCClass . '" id="toprp_'.$arItem['ID'].'_'.$PicI.'" href="'.$arPicture['BIG']['SRC'].'" rel="prettyPhoto['.$arItem['ID'].']"></a>';
                                             ?>
